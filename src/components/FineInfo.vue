@@ -5,10 +5,6 @@ import EcosystemIcon from './icons/IconEcosystem.vue'
 import FineInfoItem from "@/components/FineInfoItem.vue";
 
 defineProps({
-  fineId: {
-    type: Number,
-    required: true
-  },
   fineAmount: {
     type: Number,
     required: false
@@ -19,6 +15,18 @@ defineProps({
   },
   fineDescription: {
     type: Number,
+    required: false
+  },
+  finePoints: {
+    type: Number,
+    required: false
+  },
+  fineDateHour: {
+    type: String,
+    required: false
+  },
+  fineStatus: {
+    type: String,
     required: false
   },
 })
@@ -32,7 +40,7 @@ defineProps({
     </template>
     <template #heading>Valor</template>
 
-    <span style="text-transform: uppercase;">R$ 245,98</span>
+    <span style="text-transform: uppercase;">R$ {{ fineAmount }}</span>
 
   </FineInfoItem>
 
@@ -42,7 +50,16 @@ defineProps({
     </template>
     <template #heading>Local</template>
 
-    <span style="text-transform: uppercase;">Rua Sao Sebastião, 360 – Chácara Santo Antonio</span>
+    <span style="text-transform: uppercase;">{{ fineSite }}</span>
+  </FineInfoItem>
+
+  <FineInfoItem>
+    <template #icon>
+      <SiteIcon />
+    </template>
+    <template #heading>Data & Hora</template>
+
+    <span style="text-transform: uppercase;">{{ fineSite }}</span>
   </FineInfoItem>
 
   <FineInfoItem>
@@ -51,7 +68,7 @@ defineProps({
     </template>
     <template #heading>Descrição</template>
 
-    <span style="text-transform: uppercase;">AVANCAR O SINAL VERMELHO DO SEMAFORO OU DE PARADA</span>
+    <span style="text-transform: uppercase;">{{ fineDescription }}</span>
 
   </FineInfoItem>
 

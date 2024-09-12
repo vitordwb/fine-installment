@@ -4,19 +4,14 @@ defineProps({
   driverName: {
     type: String,
     required: true
-  },
-  fineId: {
-    type: Number,
-    required: true
   }
 })
 
 </script>
 
 <template>
-  <span>fineId: {{ fineId }}</span>
   <div class="greetings">
-    <h1 class="pink-kovi">Olá, {{ driverName }}</h1>
+    <h1 class="pink-kovi">{{ driverName }}</h1>
     <h3 class="pink-kovi">Infelizmente você tomou uma multa :(</h3>
     <h3>
       Receber uma multa nunca é legal, mas com nossas opções de parcelamento, fica mais fácil de resolver. Confira
