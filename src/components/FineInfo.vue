@@ -3,18 +3,28 @@ import SiteIcon from './icons/IconSite.vue'
 import ToolingIcon from './icons/IconTooling.vue'
 import EcosystemIcon from './icons/IconEcosystem.vue'
 import FineInfoItem from "@/components/FineInfoItem.vue";
+import {onMounted, ref} from "vue";
+import axios from "axios";
 
 defineProps({
   fineAmount: {
-    type: Number,
+    type: String,
+    required: false
+  },
+  fineBooking: {
+    type: String,
+    default: false
+  },
+  fineId: {
+    type: String,
     required: false
   },
   fineSite: {
-    type: Number,
+    type: String,
     required: false
   },
   fineDescription: {
-    type: Number,
+    type: String,
     required: false
   },
   finePoints: {
@@ -29,20 +39,29 @@ defineProps({
     type: String,
     required: false
   },
+
 })
+
+const formatDate = (dateString) => {
+  if (!dateString) return '';
+  const date = new Date(dateString);
+  const day = String(date.getDate()).padStart(2, '0')
+  const month = String(date.getMonth() + 1).padStart(2, '0')
+  const year = date.getFullYear()
+  const hours = String(date.getHours()).padStart(2, '0')
+  const minutes = String(date.getMinutes()).padStart(2, '0')
+
+  return `${day}/${month}/${year} ${hours}:${minutes}`;
+};
+
+const installmentData = ref('')
+
+const selectedInstallment = ref(1);
+const installmentOptions = ref([1, 2, 3, 4]);
 
 </script>
 
 <template>
-  <FineInfoItem>
-    <template #icon>
-      <ToolingIcon />
-    </template>
-    <template #heading>Valor</template>
-
-    <span style="text-transform: uppercase;">R$ {{ fineAmount }}</span>
-
-  </FineInfoItem>
 
   <FineInfoItem>
     <template #icon>
@@ -59,7 +78,7 @@ defineProps({
     </template>
     <template #heading>Data & Hora</template>
 
-    <span style="text-transform: uppercase;">{{ fineSite }}</span>
+    <span style="text-transform: uppercase;">{{ formatDate(fineDateHour) }}</span>
   </FineInfoItem>
 
   <FineInfoItem>
@@ -69,6 +88,15 @@ defineProps({
     <template #heading>Descrição</template>
 
     <span style="text-transform: uppercase;">{{ fineDescription }}</span>
+  </FineInfoItem>
+
+  <FineInfoItem>
+    <template #icon>
+      <ToolingIcon />
+    </template>
+    <template #heading>Valor</template>
+
+    <span style="text-transform: uppercase;">R$ {{ fineAmount }}</span>
 
   </FineInfoItem>
 

@@ -1,6 +1,6 @@
 <script setup>
 import { useRoute } from "vue-router";
-import {onMounted, ref} from "vue";
+import { onMounted, ref } from "vue";
 import GreetingMessage from "@/components/GreetingMessage.vue";
 import FineInfo from "@/components/FineInfo.vue";
 import axios from 'axios'
@@ -9,35 +9,66 @@ const route = useRoute();
 const fineId = route.params.fineId;
 
 const fineData = ref('')
-const driverName = ref('');
-const fineAmount =  ref('');
-const finePoints =  ref('');
-const fineSite =  ref('');
-const fineDescription =  ref('');
-const fineDateHour =  ref('');
-const fineStatus =  ref('');
+const driverName = ref('')
+const fineAmount =  ref(0)
+const finePoints =  ref(0)
+const fineSite =  ref('')
+const fineDescription =  ref('')
+const fineDateHour =  ref('')
+const fineStatus =  ref('')
+const fineBooking =  ref('')
+const fineDriver =  ref('')
 
 const fetchFineData = async () => {
   try {
     const response = await axios.get('https://mocki.io/v1/7055eb5a-447b-4e5c-8a8b-51164c988714');
     fineData.value = response.data
 
-    driverName.value = fineData.value.name
-    fineAmount.value = fineData.value.amount
-    finePoints.value = fineData.value.issue_points
-    fineSite.value = fineData.value.issue_location
+    driverName.value      = fineData.value.name
+    fineAmount.value      = response.data.amount
+    finePoints.value      = fineData.value.issue_points
+    fineSite.value        = fineData.value.issue_location
     fineDescription.value = fineData.value.description
-    fineDateHour.value = fineData.value.issued_at
-    fineStatus.value = fineData.value.status
+    fineDateHour.value    = fineData.value.issued_at
+    fineStatus.value      = fineData.value.status
+    fineBooking.value      = response.data.booking
+    fineDriver.value      = fineData.value.driver
 
-    console.log(fineData.value);
   } catch (error) {
-    console.error('Erro ao buscar dados:', error);
+    console.error('Erro ao buscar dados da multa:', error);
+  }
+};
+
+const fetchInstallmentData = async () => {
+
+  // const fineAmountInt = fineAmount.value
+
+  // console.log('fineAmountInt', fineAmountInt)
+
+  const params = {
+    booking_id: fineBooking,
+    fine_id: fineId,
+    driver_id: fineDriver,
+    amount: fineAmountInt,
+  }
+
+  try {
+    const response = await axios.post(
+        `https://payments-wizard.dev.kovi.internal/api/v1/kobaya/fines/${fineId}/invoices`
+        ,params
+    );
+
+    installmentData.value = response.data
+
+    console.log(installmentData.value);
+  } catch (error) {
+    console.error('Erro ao buscar dados de parcelamento:', error);
   }
 };
 
 onMounted(() => {
-  fetchFineData();
+  fetchFineData()
+  fetchInstallmentData()
 });
 
 </script>
@@ -51,7 +82,13 @@ onMounted(() => {
     </div>
   </header>
   <main>
-    <FineInfo :fine-amount="fineAmount" :fine-site="fineSite" :fine-description="fineDescription" />
+    <FineInfo :fine-amount="fineAmount"
+              :fine-site="fineSite"
+              :fine-description="fineDescription"
+              :fine-date-hour="fineDateHour"
+              :fine-id="fineId"
+              :fine-booking="fineBooking"
+    />
   </main>
 </template>
 
