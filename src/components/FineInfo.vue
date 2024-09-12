@@ -130,3 +130,18 @@ const installmentOptions = ref([1, 2, 3, 4]);
   </FineInfoItem>
 
 </template>
+
+<style scoped>
+button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 0.25rem;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+</style>
