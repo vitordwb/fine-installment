@@ -47,7 +47,7 @@ onMounted(() => {
     <img alt="Kovi logo" class="logo" src="@/assets/logo.svg" width="120" height="125" />
 
     <div class="wrapper">
-      <GreetingMessage :driver-name=driverName />
+      <GreetingMessage driver-name="Cleverson Soares" />
     </div>
   </header>
   <main>
