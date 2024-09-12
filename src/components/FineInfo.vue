@@ -7,6 +7,10 @@ import {onMounted, ref} from "vue";
 import axios from "axios";
 
 defineProps({
+  barCode:{
+    type: String,
+    required: false,
+  },
   fineAmount: {
     type: String,
     required: false
@@ -111,6 +115,16 @@ const installmentOptions = ref([1, 2, 3, 4]);
         {{ option }}x
       </option>
     </select>
+  </FineInfoItem>
+
+  <FineInfoItem>
+    <template #icon>
+      <ToolingIcon />
+    </template>
+    <template #heading>Código de Barras</template>
+
+    <span style="text-transform: uppercase;">'00020101021226940014br.gov.bcb.pix2572brcode-h.sandbox.starkinfra.com/v2/cobv/0d3904c33d544f2db07d58d96690503e5204000053039865802BR5920Kovi Tecnologia Ltda6009Sao Paulo62070503***6304BA65'</span>
+
   </FineInfoItem>
 
 </template>
