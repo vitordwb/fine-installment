@@ -3,8 +3,7 @@ import SiteIcon from './icons/IconSite.vue'
 import ToolingIcon from './icons/IconTooling.vue'
 import EcosystemIcon from './icons/IconEcosystem.vue'
 import FineInfoItem from "@/components/FineInfoItem.vue";
-import {onMounted, ref} from "vue";
-import axios from "axios";
+import { ref} from "vue";
 
 defineProps({
   barCode:{
@@ -45,6 +44,25 @@ defineProps({
   },
 
 })
+
+const showBanner = ref(false);
+const bannerMessage = ref('');
+
+const copyToClipboard = () => {
+  navigator.clipboard.writeText(barcode.value)
+      .then(() => {
+        showBanner.value = true;
+        bannerMessage.value = 'Código de barras copiado!';
+
+        // Ocultar o banner após 10 segundos
+        setTimeout(() => {
+          showBanner.value = false;
+        }, 10000); // 10000 milissegundos = 10 segundos
+      })
+      .catch(err => {
+        console.error('Falha ao copiar o código de barras:', err);
+      });
+};
 
 const formatDate = (dateString) => {
   if (!dateString) return '';
@@ -124,7 +142,8 @@ const installmentOptions = ref([1, 2, 3, 4]);
     <template #heading>Código de Barras</template>
 
     <div>
-      <span style="text-transform: uppercase;">00020101021226940014br.gov.bcb.pix2572brcode-h.sandbox.starkinfra.com/v2/cobv/0d3904c33d544f2db07d58d96690503e5204000053039865802BR5920Kovi Tecnologia Ltda6009Sao Paulo62070503***6304BA65</span>
+      <span style="text-transform: uppercase;">{{ barcode }}</span>
+      <br>
       <button @click="copyToClipboard" style="margin-left: 1rem;">Copiar</button>
     </div>
   </FineInfoItem>
@@ -143,5 +162,20 @@ button {
 
 button:hover {
   background-color: #0056b3;
+}
+
+.banner {
+  position: fixed;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #28a745;
+  color: white;
+  padding: 1rem 2rem;
+  border-radius: 0.25rem;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  font-size: 1rem;
+  text-align: center;
 }
 </style>
