@@ -3,7 +3,7 @@ import SiteIcon from './icons/IconSite.vue'
 import ToolingIcon from './icons/IconTooling.vue'
 import EcosystemIcon from './icons/IconEcosystem.vue'
 import FineInfoItem from "@/components/FineInfoItem.vue";
-import { ref} from "vue";
+import { ref } from "vue";
 
 defineProps({
   barCode:{
