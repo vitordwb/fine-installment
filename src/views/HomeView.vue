@@ -42,10 +42,10 @@ const fetchFineData = async () => {
 const fetchInstallmentData = async () => {
 
   const params = {
-    booking_id: data.booking,
-    fine_id: data.id,
-    driver_id: data.driver,
-    amount: 123,
+    booking_id: fineBooking,
+    fine_id: fineId,
+    driver_id: fineDriver,
+    amount: fineAmount,
   }
 
   try {
