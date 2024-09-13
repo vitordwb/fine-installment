@@ -54,10 +54,9 @@ const copyToClipboard = () => {
         showBanner.value = true;
         bannerMessage.value = 'Código de barras copiado!';
 
-        // Ocultar o banner após 10 segundos
         setTimeout(() => {
           showBanner.value = false;
-        }, 10000); // 10000 milissegundos = 10 segundos
+        }, 10000);
       })
       .catch(err => {
         console.error('Falha ao copiar o código de barras:', err);
