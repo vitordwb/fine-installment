@@ -1,9 +1,9 @@
 <script setup>
-import SiteIcon from './icons/IconSite.vue'
-import ToolingIcon from './icons/IconTooling.vue'
+import SiteIcon      from './icons/IconSite.vue'
+import ToolingIcon   from './icons/IconTooling.vue'
 import EcosystemIcon from './icons/IconEcosystem.vue'
-import FineInfoItem from "@/components/FineInfoItem.vue";
-import { ref } from "vue";
+import FineInfoItem  from '@/components/FineInfoItem.vue';
+import { ref }       from 'vue';
 
 defineProps({
   barCode:{
@@ -65,6 +65,7 @@ const copyToClipboard = () => {
 
 const formatDate = (dateString) => {
   if (!dateString) return '';
+
   const date = new Date(dateString);
   const day = String(date.getDate()).padStart(2, '0')
   const month = String(date.getMonth() + 1).padStart(2, '0')
@@ -141,7 +142,7 @@ const installmentOptions = ref([1, 2, 3, 4]);
     <template #heading>Código de Barras</template>
 
     <div>
-      <span style="text-transform: uppercase;">{{ barcode }}</span>
+      <span style="text-transform: uppercase;">{{ barCode }}</span>
       <br>
       <button @click="copyToClipboard" style="margin-left: 1rem;">Copiar</button>
     </div>

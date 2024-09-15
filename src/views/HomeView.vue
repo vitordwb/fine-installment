@@ -1,23 +1,23 @@
 <script setup>
-import { useRoute } from "vue-router";
-import { onMounted, ref } from "vue";
-import GreetingMessage from "@/components/GreetingMessage.vue";
-import FineInfo from "@/components/FineInfo.vue";
-import axios from 'axios'
+import { useRoute }       from 'vue-router';
+import { onMounted, ref } from 'vue';
+import GreetingMessage    from '@/components/GreetingMessage.vue';
+import FineInfo           from '@/components/FineInfo.vue';
+import axios              from 'axios'
 
 const route = useRoute();
 const fineId = route.params.fineId;
 
-const fineData = ref('')
-const driverName = ref('')
-const fineAmount =  ref(0)
-const finePoints =  ref(0)
-const fineSite =  ref('')
-const fineDescription =  ref('')
-const fineDateHour =  ref('')
-const fineStatus =  ref('')
-const fineBooking =  ref('')
-const fineDriver =  ref('')
+const fineData        = ref('')
+const driverName      = ref('')
+const fineAmount      = ref(0)
+const finePoints      = ref(0)
+const fineSite        = ref('')
+const fineDescription = ref('')
+const fineDateHour    = ref('')
+const fineStatus      = ref('')
+const fineBooking     = ref('')
+const fineDriver      = ref('')
 
 const fetchFineData = async () => {
   try {
@@ -43,20 +43,17 @@ const fetchInstallmentData = async () => {
 
   const params = {
     booking_id: fineBooking,
-    fine_id: fineId,
-    driver_id: fineDriver,
-    amount: fineAmount,
+    fine_id   : fineId,
+    driver_id : fineDriver,
+    amount    : fineAmount,
   }
 
   try {
-    console.log()
     const response2 = await axios.post(
-        `http://payments-wizard.dev.kovi.internal/api/v1/kobaya/fines/${fineId}/invoices`
-        ,params
+        `http://payments-wizard.dev.kovi.internal/api/v1/kobaya/fines/${fineId}/invoices`,params
     );
 
     installmentData.value = response2.data
-    console.log(installmentData.value);
   } catch (error) {
     console.error('Erro ao buscar dados de parcelamento:', error);
   }
